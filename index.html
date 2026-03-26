@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TLC Três Barras — Orientações e Programação 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #0d1b2e;
+      --navy2:   #162035;
+      --gold:    #c8973a;
+      --gold2:   #e8b84b;
+      --cream:   #f5f0e6;
+      --cream2:  #fdf8f0;
+      --warm:    #e8dfd0;
+      --muted:   #7a8499;
+      --text:    #1e2940;
+      --card-bg: #ffffff;
+      --accent1: #7c4a2d;
+      --accent2: #3b6e8c;
+      --accent3: #4a7c59;
+      --accent4: #7c5a2d;
+
+      --section-pad: 5rem 2rem;
+      --max-w: 900px;
+      --nav-w: 220px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream2);
+      color: var(--text);
+      display: flex;
+    }
+
+    /* ─── SIDEBAR NAV ─── */
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--nav-w);
+      height: 100vh;
+      background: var(--navy);
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    #sidebar .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--gold2);
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(200,151,58,0.3);
+    }
+    #sidebar .logo span {
+      display: block;
+      font-size: 0.7rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    #sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(245,240,230,0.6);
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+    #sidebar a .icon { font-size: 0.9rem; opacity: 0.8; }
+    #sidebar a:hover { color: var(--cream); background: rgba(200,151,58,0.12); }
+    #sidebar a.active { color: var(--gold2); background: rgba(200,151,58,0.15); font-weight: 500; }
+
+    #sidebar .section-label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1rem 0.75rem 0.3rem;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    main {
+      margin-left: var(--nav-w);
+      flex: 1;
+      min-height: 100vh;
+    }
+
+    section {
+      padding: var(--section-pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      background: var(--navy);
+      max-width: 100%;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(200,151,58,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(59,110,140,0.12) 0%, transparent 50%);
+    }
+    #hero .cross-bg {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22rem;
+      opacity: 0.025;
+      color: var(--gold);
+      pointer-events: none;
+      line-height: 1;
+    }
+    #hero .inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 5rem 2rem 4.5rem;
+    }
+    #hero .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    #hero .eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    #hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    #hero h1 em {
+      font-style: italic;
+      color: var(--gold2);
+    }
+    #hero p {
+      font-family: 'Crimson Text', serif;
+      font-size: 1.2rem;
+      color: rgba(245,240,230,0.65);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    #hero .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    #hero .tag {
+      background: rgba(200,151,58,0.15);
+      border: 1px solid rgba(200,151,58,0.3);
+      color: var(--gold2);
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SECTION HEADERS ─── */
+    .sec-header {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .sec-header.visible { opacity: 1; transform: translateY(0); }
+    .sec-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .sec-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .sec-header p {
+      margin-top: 0.75rem;
+      font-family: 'Crimson Text', serif;
+      font-size: 1.1rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    /* ─── FADE-IN ITEMS ─── */
+    .fade-item {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--warm), transparent);
+      margin: 0;
+    }
+
+    /* ─── TRIPÉ ─── */
+    #tripe { background: var(--navy); max-width: 100%; }
+    #tripe > .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-pad);
+    }
+    #tripe .sec-header h2 { color: var(--cream); }
+    #tripe .sec-label { color: var(--gold); }
+    #tripe .sec-header p { color: rgba(245,240,230,0.6); }
+
+    .tripe-triangle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+    .tripe-top {
+      display: flex;
+      justify-content: center;
+    }
+    .tripe-bottom {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .tripe-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,151,58,0.25);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      width: 220px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .tripe-card:hover {
+      background: rgba(200,151,58,0.12);
+      border-color: rgba(200,151,58,0.5);
+      transform: translateY(-3px);
+    }
+    .tripe-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    .tripe-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold2);
+      margin-bottom: 0.5rem;
+    }
+    .tripe-card p {
+      font-size: 0.8rem;
+      color: rgba(245,240,230,0.55);
+      line-height: 1.5;
+    }
+    .tripe-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      color: rgba(200,151,58,0.3);
+      font-size: 1.2rem;
+    }
+
+    .tripe-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .tripe-detail {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
+      border-left: 3px solid var(--gold);
+    }
+    .tripe-detail h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--gold2);
+      margin-bottom: 0.6rem;
+    }
+    .tripe-detail ul {
+      list-style: none;
+      padding: 0;
+    }
+    .tripe-detail ul li {
+      font-size: 0.78rem;
+      color: rgba(245,240,230,0.6);
+      padding: 0.2rem 0;
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.4;
+    }
+    .tripe-detail ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* ─── 5 ETAPAS ─── */
+    .etapas-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .etapa-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 2px 12px rgba(13,27,46,0.07);
+      border: 1px solid var(--warm);
+      transition: all 0.25s;
+    }
+    .etapa-card:hover {
+      box-shadow: 0 6px 24px rgba(13,27,46,0.12);
+      transform: translateX(4px);
+    }
+    .etapa-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
+    }
+    .etapa-card:nth-child(1) .etapa-num { background: #3b6e8c; }
+    .etapa-card:nth-child(2) .etapa-num { background: #7c4a2d; }
+    .etapa-card:nth-child(3) .etapa-num { background: #5a6e3b; }
+    .etapa-card:nth-child(4) .etapa-num { background: #6b4a8c; }
+    .etapa-card:nth-child(5) .etapa-num { background: #8c4a3b; }
+    .etapa-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+    .etapa-body p {
+      font-size: 0.85rem;
+      color: #5a6a7e;
+      line-height: 1.5;
+    }
+    .etapa-badge {
+      margin-left: auto;
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      background: var(--cream);
+      color: var(--muted);
+      border: 1px solid var(--warm);
+      white-space: nowrap;
+    }
+
+    /* ─── MATRACAS ─── */
+    #matracas { background: var(--cream); max-width: 100%; }
+    #matracas > .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-pad);
+    }
+
+    .matraca-group { margin-bottom: 2rem; }
+    .matraca-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .mg-2 { background: #fdf0e8; color: var(--accent1); }
+    .mg-3 { background: #eef5ee; color: var(--accent3); }
+    .mg-4 { background: #eef0fb; color: #4a5aa0; }
+    .mg-5 { background: #faeaea; color: #8c3a3a; }
+
+    .matraca-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .matraca-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: white;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--warm);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .matraca-item:hover {
+      border-color: var(--gold);
+      background: #fffdf7;
+    }
+    .matraca-type {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+    .type-matraca { background: var(--navy); color: var(--gold2); }
+    .type-matraquinha { background: var(--warm); color: var(--navy); }
+    .matraca-name { flex: 1; color: var(--text); font-weight: 400; }
+    .matraca-time {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .matraca-essential-note {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      border-left: 3px solid var(--gold);
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: #5a4a2a;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── PROGRAMAÇÃO (TIMELINE) ─── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .month-card {
+      display: flex;
+      gap: 1.5rem;
+      position: relative;
+    }
+    .month-dot {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      line-height: 1.2;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .mc-marco  { background: linear-gradient(135deg, #7c4a2d, #a0623c); }
+    .mc-abril  { background: linear-gradient(135deg, #8c3a3a, #b05050); }
+    .mc-maio   { background: linear-gradient(135deg, #4a7c59, #6aa07a); }
+    .mc-junho  { background: linear-gradient(135deg, #3b6e8c, #5090b0); }
+
+    .month-body {
+      flex: 1;
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 2px 16px rgba(13,27,46,0.07);
+      border: 1px solid var(--warm);
+    }
+    .month-body .month-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+    .month-body .month-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .month-body .month-sub strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .event-desc {
+      font-family: 'Crimson Text', serif;
+      font-size: 1.05rem;
+      color: #4a5568;
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+      border-left: 3px solid var(--warm);
+      padding-left: 1rem;
+    }
+
+    .event-block {
+      margin-bottom: 1rem;
+    }
+    .event-block-title {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .event-block-title.dinamica { color: #7c4a2d; }
+    .event-block-title.dinamica::before { content: ''; display: block; width: 10px; height: 2px; background: #7c4a2d; border-radius: 2px; }
+    .event-block-title.vivencia  { color: #2a5a3a; }
+    .event-block-title.vivencia::before  { content: ''; display: block; width: 10px; height: 2px; background: #2a5a3a; border-radius: 2px; }
+
+    .event-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .event-list li {
+      font-size: 0.84rem;
+      color: #3a4a5a;
+      line-height: 1.45;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .event-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .vivencia-box {
+      background: #f4f8f5;
+      border: 1px solid #bcdec8;
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+    }
+    .vivencia-box .viv-matraca {
+      font-size: 0.75rem;
+      color: #2a5a3a;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    .tripe-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .tripe-tag {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .tt-acao   { background: #fff0db; color: #a06820; border: 1px solid #f0dfc0; }
+    .tt-oracao { background: #eef0fb; color: #3a4a9a; border: 1px solid #c8d0f0; }
+    .tt-estudo { background: #eef7f2; color: #2a6a3a; border: 1px solid #bcdec8; }
+
+    /* visão geral table */
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2.5rem;
+      font-size: 0.84rem;
+    }
+    .overview-table thead th {
+      background: var(--navy);
+      color: var(--gold2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    .overview-table tbody tr {
+      border-bottom: 1px solid var(--warm);
+      transition: background 0.15s;
+    }
+    .overview-table tbody tr:hover { background: #fffdf7; }
+    .overview-table tbody td {
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      vertical-align: middle;
+    }
+    .overview-table tbody td:first-child {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .ov-viv {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--gold2);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 10px;
+    }
+    .ov-tripe {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .ov-tripe span {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .vivencia-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--navy);
+      color: var(--gold2);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ─── APTIDÃO ─── */
+    .apt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .apt-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--warm);
+      box-shadow: 0 2px 10px rgba(13,27,46,0.05);
+    }
+    .apt-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .checklist {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: #3a4a5a;
+      line-height: 1.4;
+    }
+    .checklist li .check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: white;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── REGRA DE OURO ─── */
+    #regra { background: var(--navy); max-width: 100%; }
+    #regra > .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-pad);
+    }
+    #regra .sec-header h2 { color: var(--cream); }
+    #regra .sec-label { color: var(--gold); }
+
+    .gold-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .gold-step {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,151,58,0.2);
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.2s;
+    }
+    .gold-step:hover {
+      background: rgba(200,151,58,0.1);
+      border-color: rgba(200,151,58,0.4);
+    }
+    .gold-step .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--gold2);
+      flex-shrink: 0;
+    }
+    .gold-step h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .gold-step p {
+      font-size: 0.78rem;
+      color: rgba(245,240,230,0.55);
+      line-height: 1.5;
+    }
+
+    .quote-banner {
+      background: rgba(200,151,58,0.12);
+      border: 1px solid rgba(200,151,58,0.3);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-top: 2.5rem;
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--gold2);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #080f1c;
+      max-width: 100%;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(245,240,230,0.3);
+      letter-spacing: 0.05em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream2); }
+    ::-webkit-scrollbar-thumb { background: var(--warm); border-radius: 10px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      main { margin-left: 0; }
+      .tripe-details { grid-template-columns: 1fr; }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .apt-grid { grid-template-columns: 1fr; }
+      .gold-steps { grid-template-columns: 1fr; }
+      .tripe-bottom { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─── -->
+<nav id="sidebar">
+  <div class="logo">
+    TLC<br>Três Barras
+    <span>Orientações 2026</span>
+  </div>
+
+  <div class="section-label">Visão Geral</div>
+  <a href="#hero" class="active"><span class="icon">✦</span> Início</a>
+  <a href="#tripe"><span class="icon">△</span> O Tripé</a>
+  <a href="#etapas"><span class="icon">◈</span> 5 Etapas</a>
+
+  <div class="section-label">Formação</div>
+  <a href="#matracas"><span class="icon">◉</span> Matracas Essenciais</a>
+  <a href="#aptidao"><span class="icon">✓</span> Como ser Apto</a>
+
+  <div class="section-label">Programação</div>
+  <a href="#programacao"><span class="icon">◷</span> Mar–Jun 2026</a>
+  <a href="#regra"><span class="icon">★</span> Regra de Ouro</a>
+</nav>
+
+<!-- ─── MAIN ─── -->
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="inner">
+      <div class="eyebrow">Treinamento de Liderança Cristã</div>
+      <h1>Rumo ao <em>Curso de TLC</em><br>em Três Barras</h1>
+      <p>Orientações do Secretariado Nacional e planejamento dos próximos encontros baseados no tripé Ação–Oração–Estudo.</p>
+      <div class="tags">
+        <span class="tag">Documentos Nacionais 2024</span>
+        <span class="tag">Março – Junho 2026</span>
+        <span class="tag">4 Vivências Planejadas</span>
+      </div>
+    </div>
+    <div class="cross-bg">✝</div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- TRIPÉ -->
+  <div id="tripe">
+    <div class="inner">
+      <div class="sec-header fade-item">
+        <div class="sec-label">A Premissa</div>
+        <h2>O Tripé do TLC</h2>
+        <p>Toda atividade, evento ou planejamento deve ser sustentado pelos três pilares. É a base de toda coordenação.</p>
+      </div>
+
+      <div class="tripe-triangle fade-item">
+        <div class="tripe-top">
+          <div class="tripe-card">
+            <span class="icon">🔥</span>
+            <h3>Ação</h3>
+            <p>Tudo que mostra o TLC para a comunidade: eventos, promoções, ação social</p>
+          </div>
+        </div>
+        <div class="tripe-connector">— — —</div>
+        <div class="tripe-bottom">
+          <div class="tripe-card">
+            <span class="icon">🕊️</span>
+            <h3>Oração</h3>
+            <p>Vivencia em comunidade</p>
+          </div>
+          <div class="tripe-card">
+            <span class="icon">📖</span>
+            <h3>Estudo</h3>
+            <p>Escolas de Vivência mensais (4h) pelas 5 etapas do TLC</p>
+          </div>
+        </div>452
+      </div>
+
+      <div class="tripe-details fade-item">
+        <div class="tripe-detail">
+          <h4>🔥 Como fazer AÇÃO</h4>
+          <ul>
+            <li>X-Salada, pirogada, pastelada</li>
+            <li>Show de prêmios beneficente</li>
+            <li>Eventos abertos à comunidade</li>
+            <li>Qualquer iniciativa social</li>
+          </ul>
+        </div>
+        <div class="tripe-detail">
+          <h4>🕊️ Como fazer ORAÇÃO</h4>
+          <ul>
+            <li>1 adoração/mês por comunidade, aberto</li>
+            <li>Terços</li>
+            <li>Estudos Bíblicos</li>
+          </ul>
+        </div>
+        <div class="tripe-detail">
+          <h4>📖 Como fazer ESTUDO</h4>
+          <ul>
+            <li>1 vivência/mês (mínimo nacional)</li>
+            <li>4h: 2h reunião + 2h grupos</li>
+            <li>12 vivências = apto para o curso</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- 5 ETAPAS -->
+  <section id="etapas">
+    <div class="sec-header fade-item">
+      <div class="sec-label">A Estrutura</div>
+      <h2>As 5 Etapas do Curso de TLC</h2>
+      <p>Toda formação e Escola de Vivência deve seguir esta sequência. São a espinha dorsal do TLC.</p>
+    </div>
+
+    <div class="etapas-grid">
+      <div class="etapa-card fade-item">
+        <div class="etapa-num">1</div>
+        <div class="etapa-body">
+          <h3>Formação do Espírito de Comunidade</h3>
+          <p>Criar atmosfera de amizade e acolhimento. Mostrar o valor do trabalho em grupo e da vida em comunidade cristã. Não há matracas nesta etapa — apenas dinâmicas.</p>
+        </div>
+        <div class="etapa-badge">Sexta-noite</div>
+      </div>
+      <div class="etapa-card fade-item">
+        <div class="etapa-num">2</div>
+        <div class="etapa-body">
+          <h3>Purificação da Vida</h3>
+          <p>Despertar a necessidade de revisão interior. Apresentar a infinita misericórdia de Deus pelo Filho Pródigo e o Filme da Vida.</p>
+        </div>
+        <div class="etapa-badge">Sexta-noite</div>
+      </div>
+      <div class="etapa-card fade-item">
+        <div class="etapa-num">3</div>
+        <div class="etapa-body">
+          <h3>Iluminação da Vida</h3>
+          <p>Demonstrar a necessidade de um ideal para se realizar como ser humano e iluminar o sentido da vida.</p>
+        </div>
+        <div class="etapa-badge">Sábado manhã</div>
+      </div>
+      <div class="etapa-card fade-item">
+        <div class="etapa-num">4</div>
+        <div class="etapa-body">
+          <h3>Vida de União</h3>
+          <p>A etapa mais extensa e essencial. Apresentar a grandiosidade da vida de união com Deus pelos sacramentos, e com os irmãos em comunidade.</p>
+        </div>
+        <div class="etapa-badge">Sáb–Dom</div>
+      </div>
+      <div class="etapa-card fade-item">
+        <div class="etapa-num">5</div>
+        <div class="etapa-body">
+          <h3>Vida Apostólica</h3>
+          <p>Etapa de envio ao serviço. Mostrar os meios de colocar em prática tudo o que foi aprendido: liderança, apostolado e ação social.</p>
+        </div>
+        <div class="etapa-badge">Domingo</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- MATRACAS -->
+  <div id="matracas">
+    <div class="inner">
+      <div class="sec-header fade-item">
+        <div class="sec-label">Conteúdo Obrigatório</div>
+        <h2>Matracas Essenciais</h2>
+        <p>16 matracas e matraquinhas que devem ser realizadas obrigatoriamente. Sem elas, o curso não é reconhecido como TLC pelo Secretariado Nacional.</p>
+      </div>
+
+      <div class="matraca-essential-note fade-item">
+        "As matracas essenciais não podem ser retiradas do curso. As complementares podem ser adaptadas conforme a realidade local. Não é permitido incluir temas que não estejam previstos no manual."
+      </div>
+
+      <!-- Etapa 2 -->
+      <div class="matraca-group fade-item">
+        <div class="matraca-group-title mg-2">✦ 2ª Etapa — Purificação da Vida</div>
+        <div class="matraca-list">
+          <div class="matraca-item">
+            <span class="matraca-type type-matraquinha">Matraquinha</span>
+            <span class="matraca-name">Os Magos (Mt 2, 1-12)</span>
+            <span class="matraca-time">15 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Deus, Finalidade e Opção de Vida</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">O Filho Pródigo (Lc 15, 11-24) e o Filme da Vida</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etapa 3 -->
+      <div class="matraca-group fade-item">
+        <div class="matraca-group-title mg-3">✦ 3ª Etapa — Iluminação da Vida</div>
+        <div class="matraca-list">
+          <div class="matraca-item">
+            <span class="matraca-type type-matraquinha">Matraquinha</span>
+            <span class="matraca-name">A Semente (Lc 8, 4-15)</span>
+            <span class="matraca-time">15 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">A Força do Ideal</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">O Sentido da Vida</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etapa 4 -->
+      <div class="matraca-group fade-item">
+        <div class="matraca-group-title mg-4">✦ 4ª Etapa — Vida de União</div>
+        <div class="matraca-list">
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">O Dom de Deus</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">O Povo de Deus</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Religiosidade: A Minha Relação com Deus</span>
+            <span class="matraca-time">60 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Em Busca da Verdade: Jesus Cristo</span>
+            <span class="matraca-time">40 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Canais da Graça (Sacramentos)</span>
+            <span class="matraca-time">100 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Maria</span>
+            <span class="matraca-time">40 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraquinha">Matraquinha</span>
+            <span class="matraca-name">Sem Mim, Nada Podeis Fazer (Jo 15, 1-5)</span>
+            <span class="matraca-time">15 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Família</span>
+            <span class="matraca-time">50 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etapa 5 -->
+      <div class="matraca-group fade-item">
+        <div class="matraca-group-title mg-5">✦ 5ª Etapa — Vida Apostólica</div>
+        <div class="matraca-list">
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">O Líder e Seus Caminhos</span>
+            <span class="matraca-time">60 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Vida e Obra de Padre Haroldo</span>
+            <span class="matraca-time">40 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Escalada</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+          <div class="matraca-item">
+            <span class="matraca-type type-matraca">Matraca</span>
+            <span class="matraca-name">Conquista das Alturas: Sempre Mais Alto!</span>
+            <span class="matraca-time">30 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- APTIDÃO -->
+  <section id="aptidao">
+    <div class="sec-header fade-item">
+      <div class="sec-label">O Caminho</div>
+      <h2>Como se Tornar Apto para o Curso</h2>
+      <p>O coordenador regional analisará o histórico do grupo. Quanto mais documentado, mais fácil a aprovação.</p>
+    </div>
+
+    <div class="apt-grid fade-item">
+      <div class="apt-card">
+        <h3>📋 Conformidade Necessária</h3>
+        <ul class="checklist">
+          <li><span class="check">✓</span> Nacional PD</li>
+          <li><span class="check">✓</span> Regional PD</li>
+          <li><span class="check">✓</span> Diocesano PD</li>
+        </ul>
+      </div>
+      <div class="apt-card">
+        <h3>📌 O que Fazer Agora</h3>
+        <ul class="checklist">
+          <li><span class="check">✓</span> Registrar tudo — fotos, vídeos, atas</li>
+          <li><span class="check">✓</span> Divulgar as ações publicamente</li>
+          <li><span class="check">✓</span> Realizar as vivências mensais</li>
+        </ul>
+      </div>
+      <div class="apt-card">
+        <h3>🎯 Meta de Vivências</h3>
+        <ul class="checklist">
+          <li><span class="check">✓</span> Mínimo 12 vivências documentadas</li>
+          <li><span class="check">✓</span> 4h cada (2h reunião + 2h grupos)</li>
+          <li><span class="check">✓</span> 1 por mês = 1 ano de formação</li>
+          <li><span class="check">✓</span> Seguindo as 5 etapas do TLC</li>
+        </ul>
+      </div>
+      <div class="apt-card">
+        <h3>📦 Materiais Disponíveis</h3>
+        <ul class="checklist">
+          <li><span class="check">✓</span> Funções de cada coordenador</li>
+          <li><span class="check">✓</span> Processo de escolha de coordenadores</li>
+          <li><span class="check">✓</span> Guia de como iniciar o processo</li>
+          <li><span class="check">✓</span> Contato: coordenador dos áudios</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROGRAMAÇÃO -->
+  <section id="programacao">
+    <div class="sec-header fade-item">
+      <div class="sec-label">Próximos Encontros</div>
+      <h2>Programação Março–Junho 2026</h2>
+      <p>Cada evento completa o tripé Ação–Oração–Estudo e conta como uma Escola de Vivência registrada.</p>
+    </div>
+
+    <div class="timeline">
+
+      <!-- MARÇO -->
+      <div class="month-card fade-item">
+        <div class="month-dot mc-marco">MAR<br>2026</div>
+        <div class="month-body">
+          <div class="month-title">Campanha do Agasalho</div>
+          <div class="month-sub">
+            Quaresma · <strong>5ª Etapa — Vida Apostólica</strong> · <span class="vivencia-badge">📚 Vivência #1</span>
+          </div>
+          <p class="event-desc">
+            Na Quaresma, a Igreja nos convida à caridade. O grupo lança uma campanha de doação de agasalhos e cobertores até a Semana Santa, unindo ação social e presença comunitária visível — mostrando à paróquia quem é o TLC de Três Barras.
+          </p>
+          <div class="event-block">
+            <div class="event-block-title dinamica">Dinâmica do Evento</div>
+            <ul class="event-list">
+              <li>Lançamento público nas redes sociais com identidade visual do TLC</li>
+              <li>Ponto de coleta fixo e visível na paróquia durante toda a campanha</li>
+              <li>Adoração quaresmal em uma das comunidades — aberta ao público, jovens como protagonistas</li>
+              <li>Tema da oração: <em>"O que fizeste ao menor dos meus irmãos, a mim o fizeste"</em> (Mt 25)</li>
+              <li>Encerramento com entrega coletiva das doações, convidando a comunidade a participar</li>
+            </ul>
+          </div>
+          <div class="event-block">
+            <div class="event-block-title vivencia">Escola de Vivência #1 — 4h</div>
+            <div class="vivencia-box">
+              <ul class="event-list">
+                <li><strong>2h em reunião:</strong> Reflexão sobre a Quaresma, caridade e o papel do líder cristão na comunidade</li>
+                <li><strong>2h em grupos:</strong> Cada equipe pesquisa um Santo que viveu a caridade e apresenta na reunião seguinte</li>
+              </ul>
+              <p class="viv-matraca">Matraca de apoio: O Líder e Seus Caminhos (5ª Etapa)</p>
+            </div>
+          </div>
+          <div class="tripe-tags">
+            <span class="tripe-tag tt-acao">🔥 Ação</span>
+            <span class="tripe-tag tt-oracao">🕊️ Oração</span>
+            <span class="tripe-tag tt-estudo">📖 Estudo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABRIL -->
+      <div class="month-card fade-item">
+        <div class="month-dot mc-abril">ABR<br>2026</div>
+        <div class="month-body">
+          <div class="month-title">Páscoa — Caça aos Ovos Bíblicos</div>
+          <div class="month-sub">
+            Tempo Pascal · <strong>2ª Etapa — Purificação da Vida</strong> · <span class="vivencia-badge">📚 Vivência #2</span>
+          </div>
+          <p class="event-desc">
+            A Páscoa é o coração do ano cristão. O evento usa a dinâmica lúdica da caça aos ovos para levar cada participante a um encontro pessoal com a Palavra de Deus — cada ovo esconde uma frase bíblica e uma pergunta que convida à reflexão sobre a própria ressurreição interior.
+          </p>
+          <div class="event-block">
+            <div class="event-block-title dinamica">Dinâmica do Evento</div>
+            <ul class="event-list">
+              <li>Cada ovo esconde uma frase bíblica + uma pergunta de reflexão pessoal</li>
+              <li>Exemplo de pergunta: <em>"O que ressuscitou em mim nesta Páscoa?"</em></li>
+              <li>Ao final da caça: roda de partilha onde cada um lê sua frase para o grupo</li>
+              <li>Encerramento com adoração — cada participante acende uma vela simbolizando a luz de Cristo ressuscitado</li>
+            </ul>
+          </div>
+          <div class="event-block">
+            <div class="event-block-title vivencia">Escola de Vivência #2 — 4h</div>
+            <div class="vivencia-box">
+              <ul class="event-list">
+                <li><strong>2h em reunião:</strong> Reflexão sobre o Filho Pródigo — cada um escreve seu "Filme da Vida" (momento de afastamento e retorno a Deus)</li>
+                <li><strong>2h em casa:</strong> Leitura pessoal de Lc 15, 11-24 e registro escrito de uma mudança concreta que quer fazer</li>
+              </ul>
+              <p class="viv-matraca">Matraca de apoio: O Filho Pródigo e o Filme da Vida (2ª Etapa)</p>
+            </div>
+          </div>
+          <div class="tripe-tags">
+            <span class="tripe-tag tt-acao">🔥 Ação</span>
+            <span class="tripe-tag tt-oracao">🕊️ Oração</span>
+            <span class="tripe-tag tt-estudo">📖 Estudo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIO -->
+      <div class="month-card fade-item">
+        <div class="month-dot mc-maio">MAI<br>2026</div>
+        <div class="month-body">
+          <div class="month-title">Dia das Mães — Maria, a Mãe do TLC</div>
+          <div class="month-sub">
+            Maio Mariano · <strong>4ª Etapa — Vida de União</strong> · <span class="vivencia-badge">📚 Vivência #3</span>
+          </div>
+          <p class="event-desc">
+            Nossa Senhora de Guadalupe é a padroeira do TLC — uma devoção nascida do próprio Padre Haroldo Rahm. No mês de Maria e das mães, o grupo celebra essa ligação profunda: as mães dos membros são convidadas, homenageadas e envolvidas numa celebração de oração e afeto.
+          </p>
+          <div class="event-block">
+            <div class="event-block-title dinamica">Dinâmica do Evento</div>
+            <ul class="event-list">
+              <li>Convidar as mães dos membros do TLC para o encontro — o evento é especial para elas</li>
+              <li>Mimo simbólico para cada mãe presente: cartão com versículo, flor ou terço</li>
+              <li>Terço do amigo com os jovens rezando pelas mães — cada jovem coloca o nome da mãe ao pé de uma imagem de Nossa Senhora</li>
+              <li>Encerramento com adoração e canto mariano</li>
+            </ul>
+          </div>
+          <div class="event-block">
+            <div class="event-block-title vivencia">Escola de Vivência #3 — 4h</div>
+            <div class="vivencia-box">
+              <ul class="event-list">
+                <li><strong>2h em reunião:</strong> Matraca Maria — quem é Maria no TLC, por que ela é padroeira (ligação com Padre Haroldo e Guadalupe)</li>
+                <li><strong>2h em grupos:</strong> Cada equipe pesquisa uma aparição de Nossa Senhora e como ela chama à conversão — apresentação breve na reunião seguinte</li>
+              </ul>
+              <p class="viv-matraca">Matraca de apoio: Maria + Vida e Obra de Padre Haroldo (4ª e 5ª Etapas)</p>
+            </div>
+          </div>
+          <div class="tripe-tags">
+            <span class="tripe-tag tt-acao">🔥 Ação</span>
+            <span class="tripe-tag tt-oracao">🕊️ Oração</span>
+            <span class="tripe-tag tt-estudo">📖 Estudo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- JUNHO -->
+      <div class="month-card fade-item">
+        <div class="month-dot mc-junho">JUN<br>2026</div>
+        <div class="month-body">
+          <div class="month-title">Corpus Christi — Confecção de Tapetes</div>
+          <div class="month-sub">
+            Corpus Christi · <strong>4ª Etapa — Vida de União</strong> · <span class="vivencia-badge">📚 Vivência #4</span>
+          </div>
+          <p class="event-desc">
+            Corpus Christi celebra a presença real de Jesus na Eucaristia. A confecção coletiva dos tapetes é uma obra de comunidade: cada equipe responsável por um trecho, com um símbolo eucarístico e um versículo escolhido pelo grupo. O processo inteiro — do rascunho ao tapete na rua — é documentado e divulgado.
+          </p>
+          <div class="event-block">
+            <div class="event-block-title dinamica">Dinâmica do Evento</div>
+            <ul class="event-list">
+              <li> TLC responsável por um trecho do tapete — se der certo</li>
+              <li>No dia: o grupo TLC caminha unido na procissão de Corpus Christi</li>
+            </ul>
+          </div>
+          <div class="event-block">
+            <div class="event-block-title vivencia">Escola de Vivência #4 — 4h</div>
+            <div class="vivencia-box">
+              <ul class="event-list">
+                <li><strong>1h em reunião:</strong> Reflexão sobre a Eucaristia como centro da vida cristã — <em>"O que significa receber Jesus?"</em></li>
+                <li><strong>3h em trabalho:</strong> Confecção do tapete (caso for de papel)</li>
+              </ul>
+              <p class="viv-matraca">Matraca de apoio: Canais da Graça — Eucaristia (4ª Etapa)</p>
+            </div>
+          </div>
+          <div class="tripe-tags">
+            <span class="tripe-tag tt-acao">🔥 Ação</span>
+            <span class="tripe-tag tt-oracao">🕊️ Oração</span>
+            <span class="tripe-tag tt-estudo">📖 Estudo</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISÃO GERAL -->
+    <table class="overview-table fade-item">
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th>Evento</th>
+          <th>Etapa TLC</th>
+          <th>Vivência</th>
+          <th>Tripé</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Março</td>
+          <td>Campanha do Agasalho + Adoração Quaresmal</td>
+          <td>5ª — Vida Apostólica</td>
+          <td><span class="ov-viv">#1</span></td>
+          <td><div class="ov-tripe"><span class="tripe-tag tt-acao">Ação</span><span class="tripe-tag tt-oracao">Oração</span><span class="tripe-tag tt-estudo">Estudo</span></div></td>
+        </tr>
+        <tr>
+          <td>Abril</td>
+          <td>Páscoa — Caça aos Ovos + Adoração Pascal</td>
+          <td>2ª — Purificação da Vida</td>
+          <td><span class="ov-viv">#2</span></td>
+          <td><div class="ov-tripe"><span class="tripe-tag tt-acao">Ação</span><span class="tripe-tag tt-oracao">Oração</span><span class="tripe-tag tt-estudo">Estudo</span></div></td>
+        </tr>
+        <tr>
+          <td>Maio</td>
+          <td>Dia das Mães — Maria + Terço Meditado</td>
+          <td>4ª — Vida de União</td>
+          <td><span class="ov-viv">#3</span></td>
+          <td><div class="ov-tripe"><span class="tripe-tag tt-acao">Ação</span><span class="tripe-tag tt-oracao">Oração</span><span class="tripe-tag tt-estudo">Estudo</span></div></td>
+        </tr>
+        <tr>
+          <td>Junho</td>
+          <td>Corpus Christi — Tapetes + Procissão</td>
+          <td>4ª — Vida de União</td>
+          <td><span class="ov-viv">#4</span></td>
+          <td><div class="ov-tripe"><span class="tripe-tag tt-acao">Ação</span><span class="tripe-tag tt-oracao">Oração</span><span class="tripe-tag tt-estudo">Estudo</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr class="divider" />
+
+ 
+
+  <footer>
+    TLC C3 Três Barras · <span>Sempre Mais Alto</span> ·  2026
+  </footer>
+
+</main>
+
+<script>
+  // ── Scroll fade-in ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-item, .sec-header').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+
+  // ── Active nav on scroll ──
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('#sidebar a');
+
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(sec => scrollObserver.observe(sec));
+</script>
+
+</body>
+</html>
